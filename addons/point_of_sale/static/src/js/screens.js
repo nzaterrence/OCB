@@ -680,9 +680,17 @@ var OrderWidget = PosBaseWidget.extend({
 
         var total     = order ? order.get_total_with_tax() : 0;
         var taxes     = order ? total - order.get_total_without_tax() : 0;
+        var selector1  = this.el.querySelector('.summary .total > .value');
+        if (selector1){
+            this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
+        }
+        var selector2 = this.el.querySelector('.summary .total .subentry .value');
+        if (selector2){
+            this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
+        }
 
-        this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
-        this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
+        // this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
+        // this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
     },
     show_product_lot: function(orderline){
         this.pos.get_order().select_orderline(orderline);
